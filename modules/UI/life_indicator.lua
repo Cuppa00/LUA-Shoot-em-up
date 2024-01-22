@@ -1,6 +1,6 @@
 --lives indicator
 function draw_lives(l)	--pass in amount of lives
-	rectfill(0,120,128,128,7)	--f
+	rectfill(0,120,128,128,7)	--fill white box behind indicator
 	livesx = 0	--lives sprite indicator x starts at 0
 	repeat
 		spr(6, livesx, 120)	--draw sprite at 120 (bottom of screen)
