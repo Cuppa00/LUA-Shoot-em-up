@@ -1,13 +1,12 @@
 --enemies
 function init_enemies()
-    enemies = {}
+    enemies = {}    --collection of enemies
 
-    en = {}
-    en.x = 0
-    en.y = 20
-    en.spr = 4
-
-    add(enemies, en)
+    start_x = 30
+    for y=0,3 do
+        create_enemy(start_x,60,1)
+        start_x += 16
+    end
 end
 
 function update_enemies()
@@ -15,6 +14,7 @@ function update_enemies()
         for b in all(buls) do   --enemy bullet collision
             if (b.x<=en.x+7 and b.x+4>=en.x) and en.y == b.y then -- where en.x < b.x < en.x+7
                 del(enemies, en)
+                del(buls, b)
             end
         end
 
@@ -36,4 +36,15 @@ function draw_enemy()
 	for en in all(enemies) do 
 		spr(en.spr, en.x, en.y)
 	end
+end
+
+function create_enemy(x,y,type) --creates enemy as obj and adds to collection
+    if type == 1 then   --basic enemy 'blue fighter'
+        enemy = {}
+        enemy.x = x
+        enemy.y = y
+        enemy.spr = 4
+    end
+
+    add(enemies, enemy) --adds to collection
 end
