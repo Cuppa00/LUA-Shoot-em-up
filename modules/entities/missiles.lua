@@ -6,6 +6,7 @@ end				--buls 'bullets'
 
 function update_missile()
 	if btnp(4) and count(buls) < fire_rate then	--when z/c pressed call function and pass players x value
+		sfx(0)	--fire sfx
 		shoot(pl.x)
 	end
 	
