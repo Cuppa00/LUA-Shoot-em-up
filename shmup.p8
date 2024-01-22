@@ -2,6 +2,7 @@ pico-8 cartridge // http://www.pico-8.com
 version 41
 __lua__
 #include main.lua
+#include modules/UI/debug.lua
 #include modules/UI/life_indicator.lua
 #include modules/entities/missiles.lua
 #include modules/entities/player_mov_col.lua
