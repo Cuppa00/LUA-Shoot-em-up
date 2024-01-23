@@ -18,4 +18,7 @@ function _draw()	--called once per visible frame
 	draw_missile()
 	draw_enemy()
 	draw_lives(lives)
+	if false then
+		debug()
+	end
 end
