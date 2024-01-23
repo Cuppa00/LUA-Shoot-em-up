@@ -12,10 +12,10 @@ end
 function update_enemies()
     for en in all(enemies) do
         for b in all(buls) do   --enemy bullet collision
-            if (en.x<=b.x+4 and b.x<=en.x+7) and en.y == b.y then -- where en.x < b.x < en.x+7
+            if (en.x-4<=b.x+4 and b.x-4<=en.x+4) and en.y == b.y then -- where en.x < b.x < en.x
                 sfx(1)  --explosion sfx
-                del(enemies, en)
-                del(buls, b)
+                del(enemies, en)    --delete enemy
+                del(buls, b)    --delete missile
             end
         end
 
@@ -27,11 +27,7 @@ function update_enemies()
 end
 
 function draw_enemy()
-    for b in all(buls) do
-        print(b.y)
-    end
 	for en in all(enemies) do
-        print(en.y)
         spr_blink_spd = 0.0625  --enemy animation depending on type
         if en.type == 1 then
             en.spr += spr_blink_spd
@@ -74,7 +70,7 @@ function enemy_board(lvl_board) --function to take board and generate x, y and c
         local myline = lvl_board[y] 
         for x=1,10 do
             if myline[x] !=0 then
-                create_enemy(x*12-6, y*10, myline[x])   --where type != 0 take type and create an enemy
+                create_enemy(x*12-6, 5+y*10, myline[x])   --where type != 0 take type and create an enemy
             end
         end
     end
