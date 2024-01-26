@@ -12,8 +12,8 @@ end
 function update_enemies()
     for en in all(enemies) do
         for b in all(buls) do   --enemy bullet collision
-            if (en.x-4<=b.x+4 and b.x-4<=en.x+4) and en.y == b.y then -- where en.x < b.x < en.x
-                sfx(1)  --explosion sfx
+            if (en.x-2<=b.x+6 and b.x<=en.x+8) and (en.y<=b.y+3 and b.y+3<=en.y+8) then
+                sfx(1)  --explosion sfx                                                    
                 del(enemies, en)    --delete enemy
                 del(buls, b)    --delete missile
             end
@@ -70,7 +70,7 @@ function enemy_board(lvl_board) --function to take board and generate x, y and c
         local myline = lvl_board[y] 
         for x=1,10 do
             if myline[x] !=0 then
-                create_enemy(x*12-6, 5+y*10, myline[x])   --where type != 0 take type and create an enemy
+                create_enemy(x*12-6, 5+y*10, myline[x])   --where type != 0 take type and create an enemy 5+y*10 4+y*12
             end
         end
     end
