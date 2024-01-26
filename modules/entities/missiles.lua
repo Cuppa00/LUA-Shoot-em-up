@@ -12,7 +12,7 @@ function update_missile()
 	
 	for b in all(buls) do --call all b values from table
 		--bullet logic
-		b.y -= b.spd	--take away b speed from b y to make missile move up
+		b.y -= b.spd
 
 		if b.y < 0 then	--when missile goes off screen delete it
 			del(buls, b)	--delete first added value from table
@@ -29,7 +29,7 @@ end
 function shoot(x)	--function pass in x
 	add(buls, {	--add these values to table
 		x = x + 4,
-		y = 100,
+		y = 104,
 		spd = 5	 --bul speed (def 4)
 	})
 end
