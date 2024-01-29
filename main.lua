@@ -7,6 +7,7 @@ function _init()	--initialise game (run once)
 end
 
 function _update()	--update game (runs 30 times a second)
+    time += 1
 	move_player()
 	update_missile()
 	update_enemies()
