@@ -10,12 +10,14 @@ function debug()
     -- rect(66,60,70,68,3)
     -- rect(60,68,68,72,7)
     -- spr(3, 60, 65)
+    
+    if false then -- print bullet x and y
+        for x in all(buls) do   --print all bullet y
+            printh(x.y)
+        end
 
-    for x in all(buls) do   --print all bullet y
-        print(x.y)
-    end
-
-    for y in all(enemies) do    --print enemy y
-        print(y.y)
+        for y in all(enemies) do    --print enemy y
+            print(y.y)
+        end
     end
 end
