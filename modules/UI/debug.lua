@@ -15,9 +15,11 @@ function debug()
         for x in all(buls) do   --print all bullet y
             printh(x.y)
         end
+    end
 
+    if true then
         for y in all(enemies) do    --print enemy y
-            print(y.y)
+            printh('mission: '..y.mission)
         end
     end
 end
