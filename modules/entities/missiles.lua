@@ -30,6 +30,6 @@ function shoot(x)	--function pass in x
 	add(buls, {	--add these values to table
 		x = x + 4,
 		y = 104,
-		spd = 5	 --bul speed (def 4)
+		spd = 4	 --bul speed (def 4)
 	})
 end
