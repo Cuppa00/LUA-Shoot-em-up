@@ -5,8 +5,8 @@ function init_enemies()
     time = 0
 
     enemy_placement({             --10 by 3 level board where '0' is empty and other is type
-        {1,1,1,1,1,1,1,1,1,1},
-        {1,1,1,1,1,1,1,1,1,1},
+        {1,1,1,1,1,1,1,1,1,1},    --0,0,0,0,0,0,0,0,0,0
+        {1,1,1,1,1,1,1,1,1,1},    --1,1,1,1,1,1,1,1,1,1
         {1,1,1,1,1,1,1,1,1,1}
     })
 end
@@ -25,8 +25,10 @@ function update_enemies()
         if en.y > 128 then
             en.y = 0
             en.x = en.start_x
-            en.mission = 'attack_1'
-            en.passed_x = true
+            if #enemies>3 then
+                en.mission = 'attack_1'
+                en.passed_x = true
+            end
         elseif (en.start_y<=en.y+1 and en.start_y>=en.y-1) and (en.x == en.start_x) and en.passed_x then
             en.x = en.start_x
             en.y = en.start_y
