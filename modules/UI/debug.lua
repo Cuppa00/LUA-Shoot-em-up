@@ -17,9 +17,23 @@ function debug()
         end
     end
 
-    if true then
+    if false then
         for y in all(enemies) do    --print enemy y
             printh('mission: '..y.mission)
         end
     end
+
+    
+    x = 1
+    if true then
+        for p in all(enemies) do    --print enemy speed of y
+            printh('enemy '..x..' '..p.y)
+            if x == 3 then
+                x = 1
+            else
+                x += 1
+            end
+        end
+    end
+
 end
