@@ -5,9 +5,9 @@ function init_enemies()
     time = 0
 
     enemy_placement({             --10 by 3 level board where '0' is empty and other is type
-        {1,1,1,1,1,1,1,1,1,1},
-        {1,1,1,1,1,1,1,1,1,1},
-        {1,1,1,1,1,1,1,1,1,1}
+        {0,0,0,0,0,0,0,1,0,0},    --0,0,0,0,0,0,0,0,0,0
+        {0,0,0,1,0,0,0,0,0,0},    --1,1,1,1,1,1,1,1,1,1
+        {0,0,0,0,0,1,0,0,0,0}
     })
 end
 
@@ -25,19 +25,23 @@ function update_enemies()
         if en.y > 128 then
             en.y = 0
             en.x = en.start_x
-            en.mission = 'attack_1'
-            en.passed_x = true
-        elseif (en.start_y<=en.y+1 and en.start_y>=en.y-1) and (en.x == en.start_x) and en.passed_x then
+            if #enemies>3 then          
+                en.mission = 'attack_1'
+                en.passed_y = true
+            end
+        elseif (en.start_y<=en.y+1 and en.start_y>=en.y-1) and (en.x == en.start_x) and en.passed_y == true then
             en.x = en.start_x
             en.y = en.start_y
             en.mission = 'wait'
-            en.passed_x = false
+            en.passed_y = false
+            en.picked = false
         elseif en.mission == 'attack_1' then
-            attack_1()
+            attack_1(en)
         elseif en.mission == 'attack_2' then
-            attack_2()
+            attack_2(en)
         end
     end
+
     if #enemies != 0 then
         pick_enemy()
     end
@@ -75,7 +79,8 @@ function create_enemy(x,y,type) --creates enemy as obj and adds to collection
             type = 1,
             spd = 2,
             mission = 'wait',
-            passed_y = false
+            passed_y = false,
+            picked = false
         }
         add(enemies, enemy)
     elseif type == 2 then   --enemy type 'red rocket'
@@ -88,7 +93,8 @@ function create_enemy(x,y,type) --creates enemy as obj and adds to collection
             type = 2,
             spd = 2,
             mission = 'wait',
-            passed_y = false
+            passed_y = false,
+            picked = false
         }
         add(enemies, enemy) --adds to collection
     end
@@ -108,46 +114,40 @@ end
 
 
 function pick_enemy()
-    if time % attackfreq == 0 then  -- to space out enemies
+    if time % attackfreq == 0 then  -- to space out enemy attacks
         maximum = min(10,#enemies)
         pick_index = flr(rnd(maximum))    -- generate random number 0-9
         pick_index = #enemies - pick_index -- this index will be an enemy which is at the forefront from the player
 
         picked_enemy = enemies[pick_index]
-        if picked_enemy.type == 1 then
+        if picked_enemy.type == 1 and picked_enemy.picked == false then
             local random = flr(rnd(10))
-            if random < 4 then
+            if random < 4 and #enemies > 3 then
                 picked_enemy.mission = 'attack_1'
-            elseif random >= 4 then 
+                picked_enemy.picked = true
+            elseif random >= 4 or #enemies <= 3 then 
                 picked_enemy.mission = 'attack_2'
+                picked_enemy.picked = true
             end
         end
     end
 end
 
 --enemy attack sequences
-function attack_1() --head on attack
-    for en in all(enemies) do
-        if en.mission == 'attack_1' then  
-            en.y += en.spd
-        end
-    end
+function attack_1(en) --head on attack
+    en.y += en.spd
 end
 
 
-function attack_2() --wavy attack
-    for en in all(enemies) do
-        if en.mission == 'attack_2' then
-            en.x += cos(time/45)
-            en.y += en.spd
+function attack_2(en) --wavy attack
+    en.x += cos(time/45)
+    en.y += en.spd
 
-            --force enemies towards centre
-            if en.x<32 then
-                en.x += 1-(en.x/32)
-            elseif en.x>88 then
-                en.x -= (en.x-88)/32
-            end
-        end
+    --force enemies towards centre
+    if en.x<32 then
+        en.x += 1-(en.x/32)
+    elseif en.x>88 then
+        en.x -= (en.x-88)/32
     end
 end
 
