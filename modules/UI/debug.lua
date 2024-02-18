@@ -19,7 +19,8 @@ function debug()
 
     if false then
         for y in all(enemies) do    --print enemy y
-            printh('mission: '..y.mission)
+            --printh('mission: '..y.mission)
+            printh('y_pos: '..y.y)
         end
     end
 
