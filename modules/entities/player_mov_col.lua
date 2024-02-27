@@ -3,16 +3,28 @@ function init_player() --initial player values
 	pl = {}		--empty player table
 	pl.w = 16	--width
 	pl.x = 56	--start location
-	pl.s = 4	--player speed
+	pl.s = 3	--player speed
 	lives = 3
+
+	flame_time = 0
 end
 
-function move_player() --movement
+function update_player() --movement
 	pl.ox = pl.x	--old x value for collision
 	if btn(1) then	--left
     	pl.x += pl.s
   	elseif btn(0) then	--right
     	pl.x -= pl.s
+	end
+
+	if flame_time <= 8 then --ships exhaust
+		flame_spr = 33
+		flame_time += 1
+	elseif flame_time > 8 and flame_time <= 16 then 
+		flame_spr = 49
+		flame_time += 1
+	else flame_time = 0
+	 
 	end
 
 	if map_collide(pl.x, pl.w) then	--call collision function
@@ -21,7 +33,8 @@ function move_player() --movement
 end
 
 function draw_player()
-	spr(1, pl.x, 104, 2, 2)	--draw 4 sprites for 16x16 sprite
+	spr(1, pl.x, 104, 2, 2)		--draw 4 sprites for 16x16 sprite
+	spr(flame_spr, pl.x, 120, 2, 1)	--draw engine exhaust flames
 end
 
 function map_collide(x, w)	--collision
