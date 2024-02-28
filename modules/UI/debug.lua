@@ -1,4 +1,4 @@
-function debug()
+function draw_debug()
     if false then   --screen centre
         rectfill(62,0,65,128,3)
         rectfill(0,62,128,65,3)
@@ -36,5 +36,10 @@ function debug()
             end
         end
     end
+end
 
+function update_debug() --activate explosion
+    if btnp(2) then
+        explosion(60, 60)
+    end
 end
