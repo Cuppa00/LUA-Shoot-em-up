@@ -5,6 +5,7 @@ function _init()	--initialise game (run once)
 	init_missile()
 	init_enemies()
 	init_starfield()
+	init_explosion()
 end
 
 function _update()	--update game (runs 30 times a second)
@@ -13,6 +14,10 @@ function _update()	--update game (runs 30 times a second)
 	update_missile()
 	update_enemies()
 	update_starfield()
+	update_explosion()
+	if true then
+		update_debug()
+	end
 end
 
 function _draw()	--called once per visible frame
@@ -23,7 +28,8 @@ function _draw()	--called once per visible frame
 	rectfill(0,120,128,128,0)	--fill box behind lives indicator
 	draw_player()
 	draw_lives(lives)
+	draw_explosion()
 	if false then
-		debug()
+		draw_debug()
 	end
 end
