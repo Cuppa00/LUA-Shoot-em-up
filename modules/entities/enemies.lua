@@ -15,8 +15,8 @@ end
 function update_enemies()
     for en in all(enemies) do
         for b in all(buls) do   --enemy bullet collision
-            if (en.x-2<=b.x+6 and b.x<=en.x+8) and (en.y<=b.y+3 and b.y+3<=en.y+8) then
-                sfx(1)  --explosion sfx                                                    
+            if (en.x-2<=b.x+6 and b.x<=en.x+8) and (en.y<=b.y+3 and b.y+3<=en.y+8) then  
+                explosion(en.x, en.y)                                                  
                 del(enemies, en)    --delete enemy
                 del(buls, b)    --delete missile
             end
