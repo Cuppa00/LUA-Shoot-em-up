@@ -18,14 +18,12 @@ function update_player() --movement
 	end
 
 	if flame_time <= 8 then --ships exhaust
-		flame_spr = 33
+		flame_spr = 21
 		flame_time += 1
 	elseif flame_time > 8 and flame_time <= 16 then 
-		flame_spr = 49
+		flame_spr = 254
 		flame_time += 1
-	else flame_time = 0
-	 
-	end
+	else flame_time = 0 end
 
 	if map_collide(pl.x, pl.w) then	--call collision function
 		pl.x = pl.ox	--if function return true then set players x to old x
