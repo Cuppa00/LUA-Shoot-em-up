@@ -53,16 +53,12 @@ function create_stars(type) --creates star objects
 end
 
 function star_placements()  --generates a stars coords
-    loop_end = false
-    while loop_end == false do 
-        for fore in all(foreground) do
-            fore.x = flr(rnd(128))
-            fore.y = flr(rnd(128)) 
-        end
-        for back in all(background) do
-            back.x = flr(rnd(128))
-            back.y = flr(rnd(128))   
-        end
-        loop_end = true
+    for fore in all(foreground) do
+        fore.x = flr(rnd(128))
+        fore.y = flr(rnd(128)) 
+    end
+    for back in all(background) do
+        back.x = flr(rnd(128))
+        back.y = flr(rnd(128))   
     end
 end
