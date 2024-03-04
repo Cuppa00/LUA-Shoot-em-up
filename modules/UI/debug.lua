@@ -26,7 +26,7 @@ function draw_debug()
 
     
     x = 1
-    if true then
+    if false then
         for p in all(enemies) do    --print enemy speed of y
             printh('enemy '..x..' '..p.y)
             if x == 3 then
@@ -36,10 +36,55 @@ function draw_debug()
             end
         end
     end
+
+    col = 9
+    if true then
+        for en in all(enemies) do
+
+            -- if col > 10 then
+            --     col = 8
+            -- else col += 1 end
+
+            line(en.x+4, en.y+4, pl.x+8, 112, 7) -- hyp
+            line(en.x+4, en.y+4, en.x+4, 112, 8) -- vertical
+            line(en.x+4, 112, pl.x+8, 112, col) -- hori
+
+            -- vertical = 112 - en.y
+            -- horizontal = pl.x - en.x
+            -- hypo_length = sqrt(vertical^2 + horizontal^2)
+            -- temp = (1/hypo_length)*-horizontal
+            -- angle = asin(temp) -- = atan2(horizontal, vertical)
+
+            -- new_horizontal = 2 * sin(angle)
+            -- new_vertical = sqrt(4-new_horizontal) - 0.3
+            -- new_hypo_length = sqrt(new_horizontal^2 + new_vertical^2)
+
+            -- print('vertical: '..vertical, 8)
+            -- print('horizontal: '..horizontal, 8)
+            -- print('hypotenuse: '..hypo_length, 8)
+            -- print('angle: '..angle)
+
+            -- print('')
+
+            -- print('new vertical: '..new_vertical, 9)
+            -- print('new horizontal: '..new_horizontal, 9)
+            -- print('new hypotenuse: '..new_hypo_length, 9)
+
+            -- b^2 = sqrt(c^2 - a^2)
+            --flr((x + 4)>>3)<<3
+        end
+    end
+
 end
 
 function update_debug() --activate explosion
-    if btnp(2) then
+    if false and btnp(2) then
         explosion(60, 60)
     end
+end
+
+
+   
+function asin(y)
+    return atan2(sqrt(1-y*y),-y)
 end
