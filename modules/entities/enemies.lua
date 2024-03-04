@@ -1,13 +1,13 @@
 --enemies
 function init_enemies()
     enemies = {}    -- collection of enemies
-    attackfreq = 60 -- enemy attacks per sec (attackfreq/30) (secs*30)
+    attackfreq = 30 -- enemy attacks per sec (attackfreq/30) (secs*30)
     time = 0
 
     enemy_placement({             --10 by 3 level board where '0' is empty and other is type
-        {0,0,0,0,0,0,0,1,0,0},    --0,0,0,0,0,0,0,0,0,0
-        {0,0,0,1,0,0,0,0,0,0},    --1,1,1,1,1,1,1,1,1,1
-        {0,0,0,0,0,1,0,0,0,0}
+        {0,0,1,1,2,2,1,1,0,0},    --0,0,0,0,0,0,0,0,0,0
+        {0,0,0,1,1,1,1,0,0,0},    --1,1,1,1,1,1,1,1,1,1
+        {0,0,0,0,1,1,0,0,0,0}
     })
 end
 
@@ -39,6 +39,8 @@ function update_enemies()
             attack_1(en)
         elseif en.mission == 'attack_2' then
             attack_2(en)
+        elseif en.mission == 'attack_3' then
+            attack_3(en)
         end
     end
 
@@ -125,10 +127,13 @@ function pick_enemy()
             if random < 4 and #enemies > 3 then
                 picked_enemy.mission = 'attack_1'
                 picked_enemy.picked = true
-            elseif random >= 4 or #enemies <= 3 then 
+            elseif random >= 4 then 
                 picked_enemy.mission = 'attack_2'
                 picked_enemy.picked = true
             end
+        elseif picked_enemy.type == 2 and picked_enemy.picked == false then
+            picked_enemy.mission = 'attack_3'
+            picked_enemy.picked = true
         end
     end
 end
@@ -152,5 +157,18 @@ function attack_2(en) --wavy attack
 end
 
 
-function attack_3()
+function attack_3(en) --diagonal attack 
+    vertical = 112 - en.y   --b^2 = sqrt(c^2 - a^2)
+    horizontal = pl.x - en.x
+    angle = asin((1/sqrt(vertical^2 + horizontal^2))*-horizontal) -- = sin^-1()
+                                                                  -- get angle between enemy and vertical
+    new_horizontal = en.spd * sin(angle)                          -- see debug
+    new_vertical = sqrt(en.spd^2-new_horizontal) - 0.3
+
+    en.x += new_horizontal
+    en.y += new_vertical
+end
+
+function asin(y)
+    return atan2(sqrt(1-y*y),-y)
 end
