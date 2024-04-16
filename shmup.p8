@@ -9,6 +9,7 @@ __lua__
 #include modules/entities/enemies.lua
 #include modules/UI/starfield.lua
 #include modules/UI/explosion.lua
+#include modules/UI/end.lua
 
 __gfx__
 00000000000000022000000000000000c101101c1101101100022000000000000000000000000000000000000000000000000000000000000000000000000000
