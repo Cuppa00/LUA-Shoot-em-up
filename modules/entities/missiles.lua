@@ -1,6 +1,6 @@
 --missiles
 function init_missile()
-	fire_rate = 2 --how bullets allowed on screen
+	fire_rate = 1 --how bullets allowed on screen
 	buls = {}	--create empty table
 end				--buls 'bullets'
 
