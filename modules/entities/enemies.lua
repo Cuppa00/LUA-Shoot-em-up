@@ -5,9 +5,9 @@ function init_enemies()
     time = 0
 
     enemy_placement({             --10 by 3 level board where '0' is empty and other is type
-        {0,0,1,1,2,2,1,1,0,0},    --0,0,0,0,0,0,0,0,0,0
-        {0,0,0,1,1,1,1,0,0,0},    --1,1,1,1,1,1,1,1,1,1
-        {0,0,0,0,1,1,0,0,0,0}
+        {1,1,1,1,1,1,1,1,1,1},    --0,0,0,0,0,0,0,0,0,0
+        {0,1,1,1,2,2,1,1,1,0},    --1,1,1,1,1,1,1,1,1,1
+        {0,0,2,1,1,1,1,2,0,0}
     })
 end
 
@@ -16,10 +16,16 @@ function update_enemies()
     for en in all(enemies) do
         for b in all(buls) do   --enemy bullet collision
             if (en.x-2<=b.x+6 and b.x<=en.x+8) and (en.y<=b.y+3 and b.y+3<=en.y+8) then  
-                explosion(en.x, en.y)                                                  
+                explosion(en.x, en.y, 1)                                                  
                 del(enemies, en)    --delete enemy
                 del(buls, b)    --delete missile
             end
+        end
+
+        if ship_en_col(en, pl) then --enemy ship collision
+            explosion(pl.x, pl.y, 2)
+            ship_dead()
+            del(enemies, en)
         end
 
         if en.y > 128 then
@@ -116,7 +122,7 @@ end
 
 
 function pick_enemy()
-    if time % attackfreq == 0 then  -- to space out enemy attacks
+    if time % attackfreq == 0 and pl.destroyed != true then  -- to space out enemy attacks
         maximum = min(10,#enemies)
         pick_index = flr(rnd(maximum))    -- generate random number 0-9
         pick_index = #enemies - pick_index -- this index will be an enemy which is at the forefront from the player
@@ -159,7 +165,7 @@ end
 
 function attack_3(en) --diagonal attack 
     vertical = 112 - en.y   --b^2 = sqrt(c^2 - a^2)
-    horizontal = pl.x - en.x
+    horizontal = pl.x+4 - en.x
     angle = asin((1/sqrt(vertical^2 + horizontal^2))*-horizontal) -- = sin^-1()
                                                                   -- get angle between enemy and vertical
     new_horizontal = en.spd * sin(angle)                          -- see debug
