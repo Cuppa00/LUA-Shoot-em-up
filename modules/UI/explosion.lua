@@ -12,7 +12,8 @@ function update_explosion()
 end
 
 function draw_explosion()
-    ex_sprites = {35, 37, 39, 41, 43}
+    --ex_sprites = {35, 37, 39, 41, 43}
+    ex_sprites = {24, 40, 56, 72, 88}
     for ex in all(explosions) do
         if ex.age == 1 then
            sfx(1)  --explosion sfx
@@ -20,16 +21,17 @@ function draw_explosion()
 
         if ex.age % 1 == 0 then
             ex_spr = ex_sprites[ex.age]
-            printh(ex_spr)
         end
 
-        spr(ex_spr, ex.x-4, ex.y-4, 2, 2)
+        --spr(ex_spr, ex.x-4, ex.y-4, 2, 2)    
+        sspr(ex_spr, 16, 16, 16, ex.x-(4*ex.size), ex.y-(4*ex.size),16*ex.size,16*ex.size)    
         ex.age += 0.5
     end
 end
 
-function explosion(spawn_x, spawn_y) --create the explosion
+function explosion(spawn_x, spawn_y, ex_size) --create the explosion
     local ex = {
+        size = ex_size,
         x = spawn_x,
         y = spawn_y,
         age = 1
