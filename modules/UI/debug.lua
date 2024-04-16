@@ -1,5 +1,9 @@
 function draw_debug()
-    if false then   --screen centre
+    if false then
+        rect(pl.x,104,pl.x,104,7)
+    end
+
+    if true then   --screen centre
         rectfill(62,0,65,128,3)
         rectfill(0,62,128,65,3)
         rectfill(0,30,128,33,5)
@@ -38,16 +42,17 @@ function draw_debug()
     end
 
     col = 9
-    if true then
+    if false then
         for en in all(enemies) do
 
             -- if col > 10 then
             --     col = 8
             -- else col += 1 end
-
-            line(en.x+4, en.y+4, pl.x+8, 112, 7) -- hyp
-            line(en.x+4, en.y+4, en.x+4, 112, 8) -- vertical
-            line(en.x+4, 112, pl.x+8, 112, col) -- hori
+            if en.type == 2 then
+                line(en.x+4, en.y+4, pl.x+8, 112, 7) -- hyp
+                line(en.x+4, en.y+4, en.x+4, 112, 8) -- vertical
+                line(en.x+4, 112, pl.x+8, 112, col) -- hori
+            end
 
             -- vertical = 112 - en.y
             -- horizontal = pl.x - en.x
